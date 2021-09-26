@@ -1,38 +1,114 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.nav {
+  width: 100%;
+  height: 50px;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.nav h3 {
+  margin-right: 4px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.box {
+  width: 90vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: row;
+  backdrop-filter: blur(1px) saturate(85%);
+  -webkit-backdrop-filter: blur(1px) saturate(85%);
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  margin-top: 30px;
+}
+
+.music-container {
+  display: flex;
+  width: 33%;
+  justify-content: center;
+  align-items: center;
+}
+.music-plyr {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+  height: 80%;
+  backdrop-filter: blur(1px) saturate(85%);
+  -webkit-backdrop-filter: blur(1px) saturate(85%);
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+.plyr-img {
+  width: 80%;
+}
+.plyr-name {
+  font-size: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.plyr-controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.plyr-btn {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  font-size: 1.8em;
+  cursor: pointer;
+}
+
+.plyr-bar {
+  color: brown;
+}
+.progress-container {
+  margin-top: 20px;
+  background: rgb(141, 25, 141);
+  border-radius: 5px;
+  cursor: pointer;
+  height: 4px;
+  width: 100%;
+  backdrop-filter: blur(1px) saturate(85%);
+  -webkit-backdrop-filter: blur(1px) saturate(85%);
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+.progress {
+  background-color: #f8edf0ce;
+  border-radius: 5px;
+  height: 102%;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.queue {
+  width: 33%;
+  height: 100%;
+}
+.search {
+  width: 33%;
+  height: 100%;
 }
