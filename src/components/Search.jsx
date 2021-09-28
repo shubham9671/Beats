@@ -100,6 +100,10 @@ const Search = () => {
                                 url === jio_API_URL
                                   ? ele.song_image
                                   : ele.thumbnailUrl,
+                              artist:
+                                url === jio_API_URL
+                                  ? ele.song_artist
+                                  : ele.artist,
                             })
                           );
                         }}

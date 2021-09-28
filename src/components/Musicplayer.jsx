@@ -43,7 +43,7 @@ const Musicplayer = () => {
             <h2>{song.name}</h2>
           </div>
           <div className="song-artist">
-            <h5>Arijit Singh</h5>
+            <h5>{song.artist}</h5>
           </div>
         </div>
         <div className="plyr-controls">
