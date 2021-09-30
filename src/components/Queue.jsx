@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { queue } from "../actions/index";
@@ -11,7 +11,6 @@ const Queue = () => {
 
   useEffect(() => {
     setqueuearray(currqueue);
-    console.log(queuearray);
   }, [currqueue]);
 
   return (
@@ -21,7 +20,7 @@ const Queue = () => {
         <div className="song_list flex">
           {queuearray.map((ele, index) => {
             return (
-              <div className="song_item flex">
+              <div key={index + 100} className="song_item flex">
                 <div className="names">
                   <p className="index">{index + 1}</p>
 

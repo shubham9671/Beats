@@ -7,7 +7,7 @@ import logo from "./search.svg";
 import { useRef, useState } from "react/cjs/react.development";
 const Search = () => {
   const jio_API_URL = "https://saavn.me/search?song=";
-  const yt_API_URL = "https://youtube.ankit5522.repl.co/list/";
+
   const [url, seturl] = useState(jio_API_URL);
   const [data1, setdata1] = useState([]);
   const [data2, setdata2] = useState([]);
@@ -22,7 +22,7 @@ const Search = () => {
     if (inptext.current.value) {
       const res = await fetch(url + encodeURIComponent(inptext.current.value));
       const result = await res.json();
-      console.log(result);
+
       url === jio_API_URL ? setdata1(result) : setdata2(result);
       url === jio_API_URL ? setisdata1(true) : setisdata2(true);
     }
@@ -43,10 +43,9 @@ const Search = () => {
         <div className="details">
           {(url === jio_API_URL ? isdata1 : isdata2) ? (
             <div className="search-items">
-              {console.log("amkot")}
-              {(url === jio_API_URL ? data1 : data2).map((ele) => {
+              {(url === jio_API_URL ? data1 : data2).map((ele, index) => {
                 return (
-                  <div className="search-item">
+                  <div key={index} className="search-item">
                     <div className="searchbox">
                       <div className="search-img">
                         <img

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+
 import { currsong, queue } from "../actions";
 import {
   FiSkipForward,
@@ -11,8 +12,7 @@ import {
 const Musicplayer = () => {
   const [isplay, setisplay] = useState(false);
   const [img, setimg] = useState("");
-  // const [currtime, setcurrtime] = useState("");
-  // const [totaltime, settotaltime] = useState(50);
+
   const audio = useRef();
   const progress = useRef();
   const progressContainer = useRef();
@@ -20,13 +20,10 @@ const Musicplayer = () => {
 
   const song = useSelector((state) => state.currsong);
   const currqueue = useSelector((state) => state.queue);
-  console.log(currqueue);
-  // console.log(song);
   useEffect(() => {
     if (!song.name.includes("Tum")) {
-      console.log("changed");
       audio.current.play();
-      // setsurl(song.durl);
+
       setisplay(true);
       setimg("rotate");
     }
@@ -39,12 +36,10 @@ const Musicplayer = () => {
   }, []);
 
   function setProgress(e) {
-    console.log(audio);
     const width = progressContainer.current.clientWidth;
     const clickX = e.nativeEvent.offsetX;
     const duration = audio.current.duration;
     const currtime = (clickX / width) * duration;
-    console.log(currtime);
     audio.current.currentTime = currtime;
   }
 
@@ -56,7 +51,7 @@ const Musicplayer = () => {
     progress.current.style.width = `${progressPercent}%`;
   }
 
-  function getsong() {
+  function getsong(btn) {
     if (currqueue.length) {
       dispatch(
         currsong({
@@ -68,7 +63,7 @@ const Musicplayer = () => {
           artist: currqueue[0].artist,
         })
       );
-      console.log(currqueue);
+
       dispatch(
         queue({
           type: "remove",
@@ -76,8 +71,10 @@ const Musicplayer = () => {
         })
       );
     } else {
-      setisplay(false);
-      setimg("");
+      if (btn !== "btn") {
+        setisplay(false);
+        setimg("");
+      }
     }
   }
 
@@ -107,14 +104,19 @@ const Musicplayer = () => {
             ) : (
               <FiPlayCircle
                 onClick={() => {
-                  console.log(audio);
                   setisplay(true);
                   audio.current.play();
                   setimg("rotate");
                 }}
               />
             )}
-            <FiSkipForward className="changebtn" />
+
+            <FiSkipForward
+              onClick={() => {
+                getsong("btn");
+              }}
+              className="changebtn"
+            />
           </div>
           <audio
             preload="none"
@@ -122,7 +124,7 @@ const Musicplayer = () => {
               updateProgress();
             }}
             onEnded={() => {
-              getsong();
+              getsong("other");
               // audio.current.play();
             }}
             ref={audio}
