@@ -11,7 +11,8 @@ import {
 const Musicplayer = () => {
   const [isplay, setisplay] = useState(false);
   const [img, setimg] = useState("");
-
+  // const [currtime, setcurrtime] = useState("");
+  // const [totaltime, settotaltime] = useState(50);
   const audio = useRef();
   const progress = useRef();
   const progressContainer = useRef();
@@ -38,15 +39,19 @@ const Musicplayer = () => {
   }, []);
 
   function setProgress(e) {
+    console.log(audio);
     const width = progressContainer.current.clientWidth;
     const clickX = e.nativeEvent.offsetX;
     const duration = audio.current.duration;
     const currtime = (clickX / width) * duration;
+    console.log(currtime);
     audio.current.currentTime = currtime;
   }
 
   function updateProgress() {
     const { duration, currentTime } = audio.current;
+    // setcurrtime((currentTime / 60).toFixed(2));
+    // settotaltime((duration / 60).toFixed(2));
     const progressPercent = (currentTime / duration) * 100;
     progress.current.style.width = `${progressPercent}%`;
   }
@@ -63,10 +68,11 @@ const Musicplayer = () => {
           artist: currqueue[0].artist,
         })
       );
+      console.log(currqueue);
       dispatch(
         queue({
           type: "remove",
-          id: song.id,
+          id: currqueue[0].id,
         })
       );
     } else {
@@ -89,7 +95,7 @@ const Musicplayer = () => {
         </div>
         <div className="plyr-controls">
           <div className="plyr-btn">
-            <FiSkipBack />
+            <FiSkipBack className="changebtn" />
             {isplay ? (
               <FiPauseCircle
                 onClick={() => {
@@ -101,13 +107,14 @@ const Musicplayer = () => {
             ) : (
               <FiPlayCircle
                 onClick={() => {
+                  console.log(audio);
                   setisplay(true);
                   audio.current.play();
                   setimg("rotate");
                 }}
               />
             )}
-            <FiSkipForward />
+            <FiSkipForward className="changebtn" />
           </div>
           <audio
             preload="none"
@@ -121,6 +128,10 @@ const Musicplayer = () => {
             ref={audio}
             src={song.durl}
           ></audio>
+          {/* <div className="time">
+            <div className="currtime">{currtime}</div>
+            <div className="totaltime">{totaltime}</div>
+          </div> */}
           <div
             onClick={(e) => {
               setProgress(e);

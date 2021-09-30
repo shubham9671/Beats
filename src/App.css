@@ -274,6 +274,9 @@
   width: 100%;
   flex-direction: column;
 }
+.changebtn {
+  color: #ffffff18;
+}
 .search-item {
   display: flex;
   gap: 10px;
