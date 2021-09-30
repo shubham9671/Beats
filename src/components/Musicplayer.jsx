@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-
+import AudioSpectrum from "react-audio-spectrum2";
 import { currsong, queue } from "../actions";
 import {
   FiSkipForward,
@@ -119,7 +119,9 @@ const Musicplayer = () => {
             />
           </div>
           <audio
+            id="audio-element"
             preload="none"
+            crossOrigin="anonymous"
             onTimeUpdate={() => {
               updateProgress();
             }}
@@ -128,8 +130,27 @@ const Musicplayer = () => {
               // audio.current.play();
             }}
             ref={audio}
-            src={song.durl}
+            src={
+              "https://square-pine-3f5d.ankit-drive.workers.dev/?link=" +
+              encodeURIComponent(song.durl)
+            }
           ></audio>
+          <AudioSpectrum
+            id="audio-canvas"
+            height={200}
+            width={1520}
+            audioId={"audio-element"}
+            capColor={"white"}
+            capHeight={2}
+            meterWidth={2}
+            meterCount={512}
+            meterColor={[
+              { stop: 0, color: "#f00" },
+              { stop: 0.5, color: "#0CD7FD" },
+              { stop: 1, color: "red" },
+            ]}
+            gap={4}
+          />
           {/* <div className="time">
             <div className="currtime">{currtime}</div>
             <div className="totaltime">{totaltime}</div>
