@@ -1,30 +1,45 @@
-import React from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { queue } from "../actions/index";
+import { BiX } from "react-icons/bi";
 const Queue = () => {
-  const arr = [
-    "fgtrtgbr",
-    "fgrrgtr",
-    "vrgtrt",
-    "fvrg",
-    "grwfvrg",
-    "wrtgrtgt",
-    "fgrrgtr",
-    "vrgtrt",
-    "fvrg",
-    "grwfvrg",
-    "wrtgrtgt",
-  ];
+  const dispatch = useDispatch();
+  const [queuearray, setqueuearray] = useState([]);
+
+  const currqueue = useSelector((state) => state.queue);
+
+  useEffect(() => {
+    setqueuearray(currqueue);
+    console.log(queuearray);
+  }, [currqueue]);
 
   return (
     <div className="queue">
       <div className="queuearea">
         <div className="flex name">Queue</div>
         <div className="song_list flex">
-          {arr.map((ele, index) => {
+          {queuearray.map((ele, index) => {
             return (
               <div className="song_item flex">
-                <p>{index + 1}</p>
-                <p>{ele}</p>
+                <div className="names">
+                  <p className="index">{index + 1}</p>
+
+                  <p className="text">{ele.name}</p>
+                </div>
+
+                <div className="remove">
+                  <BiX
+                    onClick={() => {
+                      dispatch(
+                        queue({
+                          type: "remove",
+                          id: ele.id,
+                        })
+                      );
+                    }}
+                  />
+                </div>
               </div>
             );
           })}

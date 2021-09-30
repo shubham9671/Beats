@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { currsong, queue } from "../actions";
 import {
   FiSkipForward,
   FiSkipBack,
@@ -9,16 +11,31 @@ import {
 const Musicplayer = () => {
   const [isplay, setisplay] = useState(false);
   const [img, setimg] = useState("");
+
   const audio = useRef();
   const progress = useRef();
   const progressContainer = useRef();
+  const dispatch = useDispatch();
 
   const song = useSelector((state) => state.currsong);
+  const currqueue = useSelector((state) => state.queue);
+  console.log(currqueue);
+  // console.log(song);
   useEffect(() => {
-    audio.current.play();
-    setisplay(true);
-    setimg("rotate");
+    if (!song.name.includes("Tum")) {
+      console.log("changed");
+      audio.current.play();
+      // setsurl(song.durl);
+      setisplay(true);
+      setimg("rotate");
+    }
   }, [song]);
+
+  useEffect(() => {
+    audio.current.pause();
+    setisplay(false);
+    setimg("");
+  }, []);
 
   function setProgress(e) {
     const width = progressContainer.current.clientWidth;
@@ -32,6 +49,30 @@ const Musicplayer = () => {
     const { duration, currentTime } = audio.current;
     const progressPercent = (currentTime / duration) * 100;
     progress.current.style.width = `${progressPercent}%`;
+  }
+
+  function getsong() {
+    if (currqueue.length) {
+      dispatch(
+        currsong({
+          source: "jio",
+          name: currqueue[0].name,
+          id: currqueue[0].id,
+          durl: currqueue[0].durl,
+          imgurl: currqueue[0].imgurl,
+          artist: currqueue[0].artist,
+        })
+      );
+      dispatch(
+        queue({
+          type: "remove",
+          id: song.id,
+        })
+      );
+    } else {
+      setisplay(false);
+      setimg("");
+    }
   }
 
   return (
@@ -69,14 +110,16 @@ const Musicplayer = () => {
             <FiSkipForward />
           </div>
           <audio
+            preload="none"
             onTimeUpdate={() => {
               updateProgress();
             }}
             onEnded={() => {
-              audio.current.play();
+              getsong();
+              // audio.current.play();
             }}
             ref={audio}
-            src={song.link}
+            src={song.durl}
           ></audio>
           <div
             onClick={(e) => {

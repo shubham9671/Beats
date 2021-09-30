@@ -42,37 +42,6 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
-<script>
-  const tabList = document.querySelector(".tablist");
-  const tabs = document.querySelectorAll(".tablist__tab");
-  const activeTab = document.querySelector(".tablist__tab.is-active");
-  const selectionBar = document.querySelector(".selection-bar");
 
-  const toggleTabClass = (target, elements) => {
-    Array.from(elements).forEach((element) =>
-      element.classList.remove("is-active")
-    );
-    target.classList.add("is-active");
-  };
-
-  const moveTabSelectionBar = (targetTab) => {
-    const rectTargetTab = targetTab.getBoundingClientRect();
-    const rectTabList = tabList.getBoundingClientRect();
-    const selectionBarWidth = rectTargetTab.width / rectTabList.width;
-    const selectionBarPosition = rectTargetTab.left - rectTabList.left;
-
-    selectionBar.style.transform = `matrix(${selectionBarWidth}, 0, 0, 1, ${selectionBarPosition}, 1)`;
-  };
-
-  Array.from(tabs).forEach((tab) => {
-    tab.addEventListener("click", (event) => {
-      toggleTabClass(event.target, tabs);
-      moveTabSelectionBar(event.target);
-    });
-  });
-
-  moveTabSelectionBar(activeTab);
-
-</script>
 
 </html>

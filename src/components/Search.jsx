@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { currsong } from "../actions/index";
+import { currsong, queue } from "../actions/index";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiPlayCircle, BiPlusCircle } from "react-icons/bi";
 import logo from "./search.svg";
@@ -30,29 +30,7 @@ const Search = () => {
   return (
     <div className="search ">
       <div className="search-container">
-        <div className="selection">
-          <div className="tabs">
-            <div className="selection-bar"></div>
-            <ul className="tablist">
-              <li
-                onClick={() => {
-                  seturl(jio_API_URL);
-                }}
-                className="tablist__tab is-active"
-              >
-                JIOSAAVN
-              </li>
-              <li
-                onClick={() => {
-                  seturl(yt_API_URL);
-                }}
-                className="tablist__tab"
-              >
-                YT MUSIC
-              </li>
-            </ul>
-          </div>
-        </div>
+        <div className="selection">SEARCH</div>
         <div className="searcharea">
           <input
             ref={inptext}
@@ -69,53 +47,91 @@ const Search = () => {
               {(url === jio_API_URL ? data1 : data2).map((ele) => {
                 return (
                   <div className="search-item">
-                    <div className="search-img">
-                      <img
-                        src={
-                          url === jio_API_URL
-                            ? ele.song_image
-                            : ele.thumbnailUrl
-                        }
-                        width="30px"
-                        height="30px"
-                        alt=""
-                      />
-                    </div>
-                    <div className="songName">
-                      <p>{url === jio_API_URL ? ele.song_name : ele.title}</p>
+                    <div className="searchbox">
+                      <div className="search-img">
+                        <img
+                          src={
+                            url === jio_API_URL
+                              ? ele.song_image
+                              : ele.thumbnailUrl
+                          }
+                          width="30px"
+                          height="30px"
+                          alt=""
+                        />
+                      </div>
+                      <div className="songName">
+                        <p>{url === jio_API_URL ? ele.song_name : ele.title}</p>
+                      </div>
                     </div>
                     <div className="other-opt">
-                      <BiPlusCircle className="play-btn" />
-                      <BiPlayCircle
-                        onClick={() => {
-                          dispatch(
-                            currsong({
-                              name:
-                                url === jio_API_URL ? ele.song_name : ele.title,
-                              link:
-                                url === jio_API_URL
-                                  ? ele.download_links[1]
-                                  : ele.title,
-                              imgurl:
-                                url === jio_API_URL
-                                  ? ele.song_image
-                                  : ele.thumbnailUrl,
-                              artist:
-                                url === jio_API_URL
-                                  ? ele.song_artist
-                                  : ele.artist,
-                            })
-                          );
-                        }}
-                        className="play-btn"
-                      />
-                      <p className="duration">
-                        {url === jio_API_URL
-                          ? (ele.song_duration / 60).toFixed(2)
-                          : ele.duration.totalSeconds == null
-                          ? " N-A"
-                          : (ele.duration.totalSeconds / 60).toFixed(2)}
-                      </p>
+                      <div className="optionsbox">
+                        <BiPlusCircle
+                          onClick={() => {
+                            dispatch(
+                              queue({
+                                type: "queue",
+                                id:
+                                  url === jio_API_URL ? ele.song_id : ele.title,
+                                name:
+                                  url === jio_API_URL
+                                    ? ele.song_name
+                                    : ele.title,
+                                durl:
+                                  url === jio_API_URL
+                                    ? ele.download_links[1]
+                                    : ele.durl,
+                                imgurl:
+                                  url === jio_API_URL
+                                    ? ele.song_image
+                                    : ele.thumbnailUrl,
+                                artist:
+                                  url === jio_API_URL
+                                    ? ele.song_artist
+                                    : ele.artist,
+                              })
+                            );
+                          }}
+                          className="play-btn"
+                        />
+                        <BiPlayCircle
+                          onClick={() => {
+                            dispatch(
+                              currsong({
+                                source: url === jio_API_URL ? "jio" : "ytmusic",
+                                name:
+                                  url === jio_API_URL
+                                    ? ele.song_name
+                                    : ele.title,
+                                id:
+                                  url === jio_API_URL
+                                    ? ele.song_id
+                                    : ele.youtubeId,
+                                imgurl:
+                                  url === jio_API_URL
+                                    ? ele.song_image
+                                    : ele.thumbnailUrl,
+                                artist:
+                                  url === jio_API_URL
+                                    ? ele.song_artist
+                                    : ele.artist,
+                                durl:
+                                  url === jio_API_URL
+                                    ? ele.download_links[1]
+                                    : null,
+                              })
+                            );
+                          }}
+                          className="play-btn"
+                        />
+                        <p className="duration">
+                          {url === jio_API_URL
+                            ? (ele.song_duration / 60).toFixed(2)
+                            : ele.duration.totalSeconds == null
+                            ? " N-A"
+                            : (ele.duration.totalSeconds / 60).toFixed(2)}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 );

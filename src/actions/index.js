@@ -4,3 +4,9 @@ export const currsong = (data) => {
     payload: data,
   };
 };
+export const queue = (data) => {
+  return {
+    type: data.type,
+    payload: data,
+  };
+};
