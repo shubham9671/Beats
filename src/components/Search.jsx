@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { currsong, queue } from "../actions/index";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BiPlayCircle, BiPlusCircle, BiDownload } from "react-icons/bi";
 import logo from "./search.svg";
-import { useRef, useState } from "react/cjs/react.development";
-const Search = () => {
+import { useRef, useState } from "react";
+function Search() {
   const jio_API_URL = "https://saavn.me/search?song=";
 
   const [url, seturl] = useState(jio_API_URL);
@@ -183,6 +183,6 @@ const Search = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Search;

@@ -1,10 +1,12 @@
 const currsong = (
   state = {
     source: "jio",
-    name: "Tum Hi Ho",
-    durl: "http://aac.saavncdn.com/430/5c5ea5cc00e3bff45616013226f376fe_160.mp4",
-    imgurl: "http://c.saavncdn.com/430/Aashiqui-2-Hindi-2013-500x500.jpg",
-    artist: "Arijit Singh",
+    name: "Kaise Hua",
+    id: "SdU_RBkC",
+    imgurl:
+      "http://c.saavncdn.com/807/Kabir-Singh-Hindi-2019-20190614075009-500x500.jpg",
+    artist: "Vishal Mishra",
+    durl: "http://aac.saavncdn.com/807/9def501f3878ec28bbe740520ae48edc_160.mp4",
   },
   action
 ) => {
