@@ -306,7 +306,7 @@
 .optionsbox {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   width: 50%;
 }
 /* .songName {
@@ -320,7 +320,7 @@
   overflow: visible;
 }
 .play-btn {
-  font-size: 1.7em;
+  font-size: 1.6em;
 
   cursor: pointer;
   transition: 0.5s all;

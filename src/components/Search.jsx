@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { currsong, queue } from "../actions/index";
 import { AiOutlineSearch } from "react-icons/ai";
-import { BiPlayCircle, BiPlusCircle } from "react-icons/bi";
+import { BiPlayCircle, BiPlusCircle, BiDownload } from "react-icons/bi";
 import logo from "./search.svg";
 import { useRef, useState } from "react/cjs/react.development";
 const Search = () => {
@@ -26,6 +26,29 @@ const Search = () => {
       url === jio_API_URL ? setdata1(result) : setdata2(result);
       url === jio_API_URL ? setisdata1(true) : setisdata2(true);
     }
+  }
+
+  // var convertTime = function (time) {
+  //   var mins = Math.floor(time / 60);
+  //   if (mins < 10) {
+  //     mins = "0" + String(mins);
+  //   }
+  //   var secs = Math.floor(time % 60);
+  //   if (secs < 10) {
+  //     secs = "0" + String(secs);
+  //   }
+
+  //   return mins + ":" + secs;
+  // };
+  function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    // If you don't know the name or want to use
+    // the webserver default set name = ''
+    link.setAttribute("download", name);
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   }
   return (
     <div className="search ">
@@ -123,13 +146,20 @@ const Search = () => {
                           }}
                           className="play-btn"
                         />
-                        <p className="duration">
-                          {url === jio_API_URL
-                            ? (ele.song_duration / 60).toFixed(2)
-                            : ele.duration.totalSeconds == null
-                            ? " N-A"
-                            : (ele.duration.totalSeconds / 60).toFixed(2)}
-                        </p>
+                        <BiDownload
+                          onClick={() => {
+                            downloadURI(
+                              "https://square-pine-3f5d.ankit-drive.workers.dev/?link=" +
+                                encodeURIComponent(ele.download_links[1]) +
+                                `&naming=${ele.song_name}`,
+                              ele.song_name
+                            );
+                          }}
+                          className="play-btn"
+                        />
+                        {/* <p className="duration">
+                          {convertTime(ele.song_duration)}
+                        </p> */}
                       </div>
                     </div>
                   </div>
