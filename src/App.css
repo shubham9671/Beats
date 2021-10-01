@@ -276,8 +276,8 @@
   width: 100%;
   flex-direction: column;
 }
-.changebtn {
-  color: #dacdcd83;
+.changebtn-0 {
+  color: #57555549;
 }
 .search-item {
   display: flex;
@@ -403,7 +403,8 @@
 .search-logo {
   flex-direction: column;
 }
-@media screen and (max-width: 480px) {
+
+@media screen and (max-width: 700px) {
   .container {
     height: max-content;
     overflow-y: visible;
@@ -415,7 +416,7 @@
   }
   .music-container {
     width: 100%;
-    height: 430px;
+    height: 530px;
   }
   .queue {
     width: 100%;
@@ -426,7 +427,7 @@
     height: 480px;
   }
   .icon {
-    right: 30px;
+    right: 50px;
   }
   .search-input {
     width: 80%;
@@ -437,5 +438,17 @@
     bottom: -90px;
     left: -170px;
     opacity: 0.1;
+  }
+}
+@media screen and (max-width: 480px) {
+  .music-container {
+    width: 100%;
+    height: 480px;
+  }
+  .icon {
+    right: 30px;
+  }
+  .music-plyr {
+    width: 70%;
   }
 }

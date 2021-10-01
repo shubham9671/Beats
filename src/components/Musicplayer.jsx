@@ -21,7 +21,7 @@ const Musicplayer = () => {
   const song = useSelector((state) => state.currsong);
   const currqueue = useSelector((state) => state.queue);
   useEffect(() => {
-    if (!song.name.includes("Tum")) {
+    if (!song.name.includes("Tum hi ho")) {
       audio.current.play();
 
       setisplay(true);
@@ -92,7 +92,7 @@ const Musicplayer = () => {
         </div>
         <div className="plyr-controls">
           <div className="plyr-btn">
-            <FiSkipBack className="changebtn" />
+            <FiSkipBack className="changebtn-0" />
             {isplay ? (
               <FiPauseCircle
                 onClick={() => {
@@ -115,7 +115,7 @@ const Musicplayer = () => {
               onClick={() => {
                 getsong("btn");
               }}
-              className="changebtn"
+              className="changebtn-1"
             />
           </div>
           <audio
@@ -132,7 +132,9 @@ const Musicplayer = () => {
             ref={audio}
             src={
               "https://square-pine-3f5d.ankit-drive.workers.dev/?link=" +
-              encodeURIComponent(song.durl)
+              encodeURIComponent(song.durl) +
+              "&naming=" +
+              song.name
             }
           ></audio>
           <AudioSpectrum

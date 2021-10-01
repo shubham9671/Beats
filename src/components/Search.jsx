@@ -57,6 +57,11 @@ const Search = () => {
         <div className="searcharea">
           <input
             ref={inptext}
+            onKeyPress={(e) => {
+              if (e.code === "Enter") {
+                handleSearch();
+              }
+            }}
             className="search-input"
             type="text"
             placeholder="search"
