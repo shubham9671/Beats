@@ -6,7 +6,7 @@ import { BiPlayCircle, BiPlusCircle, BiDownload } from "react-icons/bi";
 import logo from "./search.svg";
 import { useRef, useState } from "react";
 function Search() {
-  const jio_API_URL = "https://saavn.me/search?song=";
+  const jio_API_URL = "https://saavn.me/search/songs?query=";
 
   const [url, seturl] = useState(jio_API_URL);
   const [data1, setdata1] = useState([]);
@@ -22,9 +22,12 @@ function Search() {
     if (inptext.current.value) {
       const res = await fetch(url + encodeURIComponent(inptext.current.value));
       const result = await res.json();
-
-      url === jio_API_URL ? setdata1(result) : setdata2(result);
-      url === jio_API_URL ? setisdata1(true) : setisdata2(true);
+setdata1(result.results);
+setTimeout(() => {
+  console.log(data1);
+  setisdata1(true);
+}, 2000);
+ 
     }
   }
 
@@ -69,9 +72,11 @@ function Search() {
           <AiOutlineSearch onClick={handleSearch} className="icon" />
         </div>
         <div className="details">
-          {(url === jio_API_URL ? isdata1 : isdata2) ? (
+          {isdata1 ? (
             <div className="search-items">
-              {(url === jio_API_URL ? data1 : data2).map((ele, index) => {
+              {console.log(data1)}
+              {data1.map((ele, index) => {
+                console.log(ele);
                 return (
                   <div key={index} className="search-item">
                     <div className="searchbox">
@@ -79,7 +84,7 @@ function Search() {
                         <img
                           src={
                             url === jio_API_URL
-                              ? ele.song_image
+                              ? ele.image[2].link
                               : ele.thumbnailUrl
                           }
                           width="30px"
@@ -88,7 +93,7 @@ function Search() {
                         />
                       </div>
                       <div className="songName">
-                        <p>{url === jio_API_URL ? ele.song_name : ele.title}</p>
+                        <p>{url === jio_API_URL ? ele.name : ele.title}</p>
                       </div>
                     </div>
                     <div className="other-opt">
@@ -99,22 +104,22 @@ function Search() {
                               queue({
                                 type: "queue",
                                 id:
-                                  url === jio_API_URL ? ele.song_id : ele.title,
+                                  url === jio_API_URL ? ele.id : ele.title,
                                 name:
                                   url === jio_API_URL
-                                    ? ele.song_name
+                                    ? ele.name
                                     : ele.title,
                                 durl:
                                   url === jio_API_URL
-                                    ? ele.download_links[1]
+                                    ? ele.downloadUrl[4].link
                                     : ele.durl,
                                 imgurl:
                                   url === jio_API_URL
-                                    ? ele.song_image
+                                    ? ele.image[2].link
                                     : ele.thumbnailUrl,
                                 artist:
                                   url === jio_API_URL
-                                    ? ele.song_artist
+                                    ? ele.artist
                                     : ele.artist,
                               })
                             );
@@ -128,23 +133,23 @@ function Search() {
                                 source: url === jio_API_URL ? "jio" : "ytmusic",
                                 name:
                                   url === jio_API_URL
-                                    ? ele.song_name
+                                    ? ele.name
                                     : ele.title,
                                 id:
                                   url === jio_API_URL
-                                    ? ele.song_id
+                                    ? ele.id
                                     : ele.youtubeId,
                                 imgurl:
                                   url === jio_API_URL
-                                    ? ele.song_image
+                                    ? ele.image[2].link
                                     : ele.thumbnailUrl,
                                 artist:
                                   url === jio_API_URL
-                                    ? ele.song_artist
+                                    ? ele.artist
                                     : ele.artist,
                                 durl:
                                   url === jio_API_URL
-                                    ? ele.download_links[1]
+                                    ? ele.downloadUrl[4].link
                                     : null,
                               })
                             );
@@ -155,9 +160,9 @@ function Search() {
                           onClick={() => {
                             downloadURI(
                               "https://square-pine-3f5d.ankit-drive.workers.dev/?link=" +
-                                encodeURIComponent(ele.download_links[1]) +
-                                `&naming=${ele.song_name}`,
-                              ele.song_name
+                                encodeURIComponent(ele.downloadUrl[4].link) +
+                                `&naming=${ele.name}`,
+                              ele.name
                             );
                           }}
                           className="play-btn"

@@ -1,12 +1,12 @@
 const currsong = (
   state = {
     source: "jio",
-    name: "Kaise Hua",
-    id: "SdU_RBkC",
+    name: "Tum Mile",
+    id: "QFLyDVyf",
     imgurl:
-      "http://c.saavncdn.com/807/Kabir-Singh-Hindi-2019-20190614075009-500x500.jpg",
-    artist: "Vishal Mishra",
-    durl: "http://aac.saavncdn.com/807/9def501f3878ec28bbe740520ae48edc_160.mp4",
+    "https://c.saavncdn.com/316/Tum-Mile-Hindi-2009-20190617160526-500x500.jpg",
+    artist: "Pritam, Neeraj Shridhar",
+    durl: "https://aac.saavncdn.com/316/658fd36a66f95f13227a04dfa848c9b9_48.mp4"
   },
   action
 ) => {
